@@ -40,7 +40,7 @@ public class Shop
       System.out.println("Currently we have the following items:");
       System.out.println(inventory());
       System.out.print("What're you lookin' to buy? ");
-      String item = scanner.nextLine();
+      String item = scanner.nextLine().toLowerCase();
       int cost = checkMarketPrice(item, true);
       if (cost == 0)
       {
@@ -61,7 +61,7 @@ public class Shop
     {
       System.out.println("What're you lookin' to sell? ");
       System.out.print("You currently have the following items: " + customer.getInventory());
-      String item = scanner.nextLine();
+      String item = scanner.nextLine().toLowerCase();
       int cost = checkMarketPrice(item, false);
       if (cost == 0)
       {
@@ -155,23 +155,23 @@ public class Shop
   */
   public int getCostOfItem(String item)
   {
-    if (item.equals("Water") || item.equals("water"))
+    if (item.equals("water"))
     {
       return WATER_COST;
     }
-    else if (item.equals("Rope") || item.equals("rope"))
+    else if (item.equals("rope"))
     {
       return ROPE_COST;
     }
-    else if (item.equals("Machete") || item.equals("machete"))
+    else if (item.equals("machete"))
     {
       return MACHETE_COST;
     }    
-    else if (item.equals("Horse") || item.equals("horse"))
+    else if (item.equals("horse"))
     {
       return HORSE_COST;
     }
-    else if (item.equals("Boat") || item.equals("boat"))
+    else if (item.equals("boat"))
     {
       return BOAT_COST;
     }

@@ -141,23 +141,23 @@ public class Town
     double rnd = Math.random();
     if (rnd < .2)
     {
-      return new Terrain("Mountains", "Rope");
+      return new Terrain("Mountains", "rope");
     }
     else if (rnd < .4)
     {
-      return new Terrain("Ocean", "Boat");
+      return new Terrain("Ocean", "boat");
     }
     else if (rnd < .6)
     {
-      return new Terrain("Plains", "Horse");
+      return new Terrain("Plains", "horse");
     }
     else if (rnd < .8)
     {
-      return new Terrain("Desert", "Water");
+      return new Terrain("Desert", "water");
     }
     else
     {
-      return new Terrain("Jungle", "Machete");
+      return new Terrain("Jungle", "machete");
     }
   }
   
