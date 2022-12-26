@@ -50,8 +50,8 @@ public class TreasureHunter
     hunter = new Hunter(name, 1000);
     
     System.out.print("Hard mode? (y/n): ");
-    String hard = scanner.nextLine();
-    if (hard.equals("y") || hard.equals("Y"))
+    String hard = scanner.nextLine().toLowerCase();
+    if (hard.equals("y"))
     {
       hardMode = true;
     }
@@ -100,7 +100,7 @@ public class TreasureHunter
     Scanner scanner = new Scanner(System.in);
     String choice = "";
     
-    while (!(choice.equals("X") || choice.equals("x")))
+    while (!choice.equals("x") && !hunter.hasAllTreasure() && hunter.getGold() > 0)
     {
       System.out.println();
       System.out.println(currentTown.getLatestNews());
@@ -109,13 +109,23 @@ public class TreasureHunter
       System.out.println(currentTown);
       System.out.println("(B)uy something at the shop.");
       System.out.println("(S)ell something at the shop.");
+      System.out.println("(H)unt for treasure");
       System.out.println("(M)ove on to a different town.");
       System.out.println("(L)ook for trouble!");
       System.out.println("Give up the hunt and e(X)it.");
       System.out.println();
       System.out.print("What's your next move? ");
-      choice = scanner.nextLine();
+      choice = scanner.nextLine().toLowerCase();
       processChoice(choice);
+    }
+
+    if (hunter.hasAllTreasure())
+    {
+      System.out.println("Congratulations! You found all the treasure and won!");
+    }
+    else if (hunter.getGold() <= 0)
+    {
+      System.out.println("Game over! You lost all your money!");
     }
   }
    
@@ -125,11 +135,16 @@ public class TreasureHunter
   */
   private void processChoice(String choice)
   {
-    if (choice.equals("B") || choice.equals("b") || choice.equals("S") || choice.equals("s"))
+    if (choice.equals("b") || choice.equals("s"))
     {
       currentTown.enterShop(choice);
     }
-    else if (choice.equals("M") || choice.equals("m"))
+    else if (choice.equals("h"))
+    {
+      String treasure = currentTown.searchForTreasure();
+      hunter.treasureHunt(treasure);
+    }
+    else if (choice.equals("m"))
     {
       if (currentTown.leaveTown())
       {
@@ -138,11 +153,11 @@ public class TreasureHunter
         enterTown();
       }
     }
-    else if (choice.equals("L") || choice.equals("l"))
+    else if (choice.equals("l"))
     {
       currentTown.lookForTrouble();
     }
-    else if (choice.equals("X") || choice.equals("x"))
+    else if (choice.equals("x"))
     {
       System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
     }
