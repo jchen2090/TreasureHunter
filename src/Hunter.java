@@ -70,6 +70,30 @@ public class Hunter
     addItem(item);
     return true;
   }
+
+  /*
+   * Adds treasure to inventory if found during treasure hunting
+   */
+  public void treasureHunt(String treasure) 
+  {
+    if(hasItemInKit(treasure))
+    {
+      System.out.println("You found extra " + treasure + ", you discarded it");
+    }
+    else if (treasure == "")
+    {
+      System.out.println("You went treasure hunting and found nothing...");
+    }
+    else if (treasure != null)
+    {
+      System.out.println("You went treasure hunting and found " + treasure);
+      addItem(treasure);
+    }
+    else 
+    {
+      System.out.println("You already searched for treasure...");
+    }
+  }
    
   /**
   * The Hunter is selling an item to a shop for gold.<p>
@@ -131,6 +155,11 @@ public class Hunter
     return false;
   }
   
+  public boolean hasAllTreasure() 
+  {
+    return hasItemInKit("Diamond") && hasItemInKit("Gold") && hasItemInKit("Jewelery"); 
+  }
+
   /**
   * Searches the kit String for a specified item.
   *

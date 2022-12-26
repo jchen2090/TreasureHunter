@@ -11,6 +11,7 @@ public class Town
   private Terrain terrain;
   private String printMessage;
   private boolean toughTown;
+  private boolean searchedForTreasure;
    
   //Constructor
   /**
@@ -28,6 +29,7 @@ public class Town
     hunter = null;
     
     printMessage = "";
+    searchedForTreasure = false;
     
     // higher toughness = more likely to be a tough town
     toughTown = (Math.random() < toughness);
@@ -57,6 +59,36 @@ public class Town
     }
   }
    
+  /*
+   * Generatres treasure for the town
+   */
+  public String searchForTreasure() 
+  {
+    String treasure = null;
+
+    if (!searchedForTreasure)
+    {
+      int rand = (int) (Math.random() * 4);
+      if (rand == 0)
+      {
+        treasure = "Diamond";
+      }
+      else if (rand == 1)
+      {
+        treasure = "Gold";
+      }
+      else if (rand == 2)
+      {
+        treasure = "Jewelery";
+      }
+      else 
+      {
+        treasure = "";
+      }
+      searchedForTreasure = true;
+    }
+    return treasure;
+  }
   /**
   * Handles the action of the Hunter leaving the town.
   * @return true if the Hunter was able to leave town.
