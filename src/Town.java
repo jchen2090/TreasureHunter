@@ -12,17 +12,20 @@ public class Town
   private String printMessage;
   private boolean toughTown;
   private boolean searchedForTreasure;
+  private boolean isCheatMode;
    
   //Constructor
   /**
   * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
   * @param s The town's shoppe.
   * @param t The surrounding terrain.
+  * @param c If cheat mode is activated
   */
-  public Town(Shop shop, double toughness)
+  public Town(Shop shop, double toughness, boolean isCheatMode)
   {
     this.shop = shop;
     this.terrain = getNewTerrain();
+    this.isCheatMode = isCheatMode;
     
     // the hunter gets set using the hunterArrives method, which
     // gets called from a client class
@@ -143,7 +146,15 @@ public class Town
     {
       printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
       int goldDiff = (int)(Math.random() * 10) + 1;
-      if (Math.random() > noTroubleChance)
+
+      if (isCheatMode)
+      {
+        goldDiff = 100;
+        printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
+        printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";
+        hunter.changeGold(goldDiff);
+      }
+      else if (Math.random() > noTroubleChance)
       {
         printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
         printMessage += "\nYou won the brawl and receive " +  goldDiff + " gold.";
