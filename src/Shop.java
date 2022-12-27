@@ -13,15 +13,18 @@ public class Shop
   private static final int MACHETE_COST = 6;
   private static final int HORSE_COST = 12;
   private static final int BOAT_COST = 20;
+  private static final int CHEAT_MODE_COST = 1;
   
   // instance variables
   private double markdown;
   private Hunter customer;
+  private boolean isCheatMode;
    
   //Constructor
-  public Shop(double markdown)
+  public Shop(double markdown, boolean isCheatMode)
   {
     this.markdown = markdown;
+    this.isCheatMode = isCheatMode;
     customer = null;
   }
   
@@ -86,11 +89,11 @@ public class Shop
   */
   public String inventory()
   {
-    String str = "Water: " + WATER_COST + " gold\n";
-    str += "Rope: " + ROPE_COST + " gold\n";
-    str += "Machete: " + MACHETE_COST + " gold\n";
-    str += "Horse: " + HORSE_COST + " gold\n";
-    str += "Boat: " + BOAT_COST + " gold\n";
+    String str = "Water: " + getCostOfItem("water") + " gold\n";
+    str += "Rope: " + getCostOfItem("rope") + " gold\n";
+    str += "Machete: " + getCostOfItem("machete") + " gold\n";
+    str += "Horse: " + getCostOfItem("horse") + " gold\n";
+    str += "Boat: " + getCostOfItem("boat") + " gold\n";    
     
     return str;
   }
@@ -155,7 +158,11 @@ public class Shop
   */
   public int getCostOfItem(String item)
   {
-    if (item.equals("water"))
+    if (isCheatMode)
+    {
+      return CHEAT_MODE_COST;
+    }
+    else if (item.equals("water"))
     {
       return WATER_COST;
     }
