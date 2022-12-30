@@ -12,7 +12,7 @@ public class Town
   private String printMessage;
   private boolean toughTown;
   private boolean searchedForTreasure;
-  private boolean isCheatMode;
+  private boolean cheatMode;
    
   //Constructor
   /**
@@ -21,11 +21,11 @@ public class Town
   * @param t The surrounding terrain.
   * @param c If cheat mode is activated
   */
-  public Town(Shop shop, double toughness, boolean isCheatMode)
+  public Town(Shop shop, double toughness, boolean cheatMode)
   {
     this.shop = shop;
     this.terrain = getNewTerrain();
-    this.isCheatMode = isCheatMode;
+    this.cheatMode = cheatMode;
     
     // the hunter gets set using the hunterArrives method, which
     // gets called from a client class
@@ -147,7 +147,7 @@ public class Town
       printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
       int goldDiff = (int)(Math.random() * 10) + 1;
 
-      if (isCheatMode)
+      if (cheatMode)
       {
         goldDiff = 100;
         printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";

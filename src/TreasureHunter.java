@@ -13,7 +13,8 @@ public class TreasureHunter
   private Town currentTown;
   private Hunter hunter;
   private boolean hardMode;
-  private boolean isCheatMode;
+  private boolean easyMode;
+  private boolean cheatMode;
   
   //Constructor
   /**
@@ -25,7 +26,8 @@ public class TreasureHunter
     currentTown = null;
     hunter = null;
     hardMode = false;
-    isCheatMode = false;
+    easyMode = false;
+    cheatMode = false;
   }
   
   // starts the game; this is the only public method
@@ -48,9 +50,6 @@ public class TreasureHunter
     System.out.print("What's your name, Hunter? ");
     String name = scanner.nextLine();
     
-    // set hunter instance variable
-    hunter = new Hunter(name, 10);
-    
     System.out.print("Hard mode? (y/n): ");
     String difficulty = scanner.nextLine().toLowerCase();
     if (difficulty.equals("y"))
@@ -59,7 +58,30 @@ public class TreasureHunter
     }
     else if (difficulty.equals("cheat"))
     {
-      isCheatMode = true;
+      cheatMode = true;
+    }
+    else
+    {
+      System.out.print("Easy mode? (y/n): ");
+      difficulty = scanner.nextLine().toLowerCase();
+
+      if (difficulty.equals("y"))
+      {
+        easyMode = true;
+      }
+      else if (difficulty.equals("cheat"))
+      {
+        cheatMode = true;
+      }
+    }
+
+    if (easyMode)
+    {
+      hunter = new Hunter(name, 20);
+    }
+    else 
+    {
+      hunter = new Hunter(name, 10);
     }
   }
   
@@ -68,26 +90,31 @@ public class TreasureHunter
   */
   private void enterTown()
   {
-    double markdown = 0.25;
+    double markdown = 0.5;
     double toughness = 0.4;
     if (hardMode)
     {
       // in hard mode, you get less money back when you sell items
-      markdown = 0.5;
+      markdown = 0.25;
       
       // and the town is "tougher"
       toughness = 0.75;
+    }
+    else if (easyMode)
+    {
+      markdown = 0.75;
+      toughness = 0.25;
     }
     
     // note that we don't need to access the Shop object
     // outside of this method, so it isn't necessary to store it as an instance
     // variable; we can leave it as a local variable
-    Shop shop = new Shop(markdown, isCheatMode);
+    Shop shop = new Shop(markdown, cheatMode, easyMode);
         
     // creating the new Town -- which we need to store as an instance
     // variable in this class, since we need to access the Town
     // object in other methods of this class
-    currentTown = new Town(shop, toughness, isCheatMode);
+    currentTown = new Town(shop, toughness, cheatMode);
     
     // calling the hunterArrives method, which takes the Hunter
     // as a parameter; note this also could have been done in the
