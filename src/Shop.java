@@ -11,6 +11,7 @@ public class Shop
   private static final int WATER_COST = 2;
   private static final int ROPE_COST = 4;
   private static final int MACHETE_COST = 6;
+  private static final int TORCH_COST = 10;
   private static final int HORSE_COST = 12;
   private static final int BOAT_COST = 20;
   private static final int CHEAT_MODE_COST = 1;
@@ -94,6 +95,7 @@ public class Shop
     String str = "- Water (" + getCostOfItem("water") + " gold)\n";
     str += "- Rope (" + getCostOfItem("rope") + " gold)\n";
     str += "- Machete (" + getCostOfItem("machete") + " gold)\n";
+    str += "- Torch (" + getCostOfItem("torch") + " gold)\n";
     str += "- Horse (" + getCostOfItem("horse") + " gold)\n";
     str += "- Boat (" + getCostOfItem("boat") + " gold)\n";    
     
@@ -160,12 +162,8 @@ public class Shop
   */
   public int getCostOfItem(String item)
   {
-    int cost;
-    if (cheatMode)
-    {
-      cost = CHEAT_MODE_COST;
-    }
-    else if (item.equals("water"))
+    int cost = 0;
+    if (item.equals("water"))
     {
       cost = WATER_COST;
     }
@@ -176,6 +174,10 @@ public class Shop
     else if (item.equals("machete"))
     {
       cost = MACHETE_COST;
+    }
+    else if (item.equals("torch"))
+    {
+      cost = TORCH_COST;
     }    
     else if (item.equals("horse"))
     {
@@ -190,7 +192,11 @@ public class Shop
       cost =  0;
     }
 
-    if (easyMode)
+    if (cheatMode && cost != 0)
+    {
+      cost = CHEAT_MODE_COST;
+    }
+    else if (easyMode)
     {
       return cost / 2;
     }
