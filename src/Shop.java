@@ -18,13 +18,15 @@ public class Shop
   // instance variables
   private double markdown;
   private Hunter customer;
-  private boolean isCheatMode;
+  private boolean cheatMode;
+  private boolean easyMode;
    
   //Constructor
-  public Shop(double markdown, boolean isCheatMode)
+  public Shop(double markdown, boolean cheatMode, boolean easyMode)
   {
     this.markdown = markdown;
-    this.isCheatMode = isCheatMode;
+    this.cheatMode = cheatMode;
+    this.easyMode = easyMode;
     customer = null;
   }
   
@@ -158,34 +160,41 @@ public class Shop
   */
   public int getCostOfItem(String item)
   {
-    if (isCheatMode)
+    int cost;
+    if (cheatMode)
     {
-      return CHEAT_MODE_COST;
+      cost = CHEAT_MODE_COST;
     }
     else if (item.equals("water"))
     {
-      return WATER_COST;
+      cost = WATER_COST;
     }
     else if (item.equals("rope"))
     {
-      return ROPE_COST;
+      cost = ROPE_COST;
     }
     else if (item.equals("machete"))
     {
-      return MACHETE_COST;
+      cost = MACHETE_COST;
     }    
     else if (item.equals("horse"))
     {
-      return HORSE_COST;
+      cost = HORSE_COST;
     }
     else if (item.equals("boat"))
     {
-      return BOAT_COST;
+      cost = BOAT_COST;
     }
     else
     {        
-      return 0;
+      cost =  0;
     }
+
+    if (easyMode)
+    {
+      return cost / 2;
+    }
+    return cost;
   }
    
   /**
