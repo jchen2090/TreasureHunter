@@ -144,7 +144,7 @@ public class Town
     }
     else
     {
-      printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+      printMessage = "You want trouble, stranger!  You got it!\n" + getFightAnimation();
       int goldDiff = (int)(Math.random() * 10) + 1;
 
       if (cheatMode)
@@ -216,5 +216,38 @@ public class Town
   {
     double rand = Math.random();
     return (rand < 0.5);
+  }
+
+  /* 
+   * Returns different fight "animations" depending on the terrain
+   */
+  private String getFightAnimation() 
+  {
+    String terrainName = terrain.getTerrainName();
+
+    if (terrainName.equals("Mountains"))
+    {
+      return "Wind Foosh Foosh\n";
+    }
+    else if (terrainName.equals("Ocean"))
+    {
+      return "Water glug glug\n";
+    }
+    else if (terrainName.equals("Plains"))
+    {
+      return "Grass shi shi\n";
+    }
+    else if (terrainName.equals("Desert"))
+    {
+      return "Tumbleweed tumble tumble\n";
+    }
+    else if (terrainName.equals("Jungle"))
+    {
+      return "Monkey Ooh Ahh\n";
+    }
+    else 
+    {
+      return "Rock Crack Boom\n";
+    }
   }
 }
